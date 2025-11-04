@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import express from 'express';
-import taskRoutes from './routes/taskRoutes';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -10,8 +9,6 @@ import {HealthController} from './controllers/health.controller.js';
 import {PingController} from "./controllers/ping.controller.js";
 
 const app = express();
-
-
 
 app.use(helmet());
 app.use(cors());
@@ -29,14 +26,7 @@ useExpressServer(app, {
   defaultErrorHandler: false,
 });
 
-app.use(express.json());
-app.use('/api/v1', taskRoutes);
-
-const port = 3000;
-app.listen(port, () => console.log(`Server running on port ${port}`));
-
 app.use(errorHandler);
 
 export default app;
-
 

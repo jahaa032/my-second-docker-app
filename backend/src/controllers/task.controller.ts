@@ -1,12 +1,7 @@
-import { Request, Response } from 'express';
-import db from '../db';
+import { Controller } from "routing-controllers";
 
-export const getAllTasks = async (req: Request, res: Response) => {
-  try {
-    const result = await db.query('SELECT * FROM tasks');
-    res.json(result.rows);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
+@Controller('/tasks')
+export default class TaskController {
+    @Post('/')
+    async createTask()
+}
