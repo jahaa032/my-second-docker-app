@@ -1,32 +1,30 @@
 import 'reflect-metadata';
-import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import {useExpressServer} from 'routing-controllers';
-import {errorHandler} from './middlewares/error.handler.js';
-import {HealthController} from './controllers/health.controller.js';
-import {PingController} from "./controllers/ping.controller.js";
+import { createExpressServer } from 'routing-controllers';
 
-const app = express();
+// import { errorHandler } from './middlewares/error.handler.js';
+import { HealthController } from './controllers/health.controller.js';
+import { PingController } from "./controllers/ping.controller.js";
+import TaskController from './controllers/task.controller.js';
 
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
-app.use(morgan('dev'));
-
-useExpressServer(app, {
-  routePrefix: '/api/v1',
-  controllers: [ // TODO: add more controllers
+const app = createExpressServer({
+  routePrefix: '/api',      
+  controllers: [
     HealthController,
     PingController,
+    TaskController,
   ],
   validation: true,
   classTransformer: true,
   defaultErrorHandler: false,
 });
 
-app.use(errorHandler);
+app.use(helmet());
+app.use(cors());
+app.use(morgan('dev'));
+// app.use(errorHandler);
 
 export default app;
 

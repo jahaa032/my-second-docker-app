@@ -1,4 +1,8 @@
 import app from './app.js';
+import tasksRouter from './routes/tasks.js';
+
+
+app.use('/api/v1/tasks', tasksRouter);
 
 const port = Number(process.env.PORT) || 3000;
 
