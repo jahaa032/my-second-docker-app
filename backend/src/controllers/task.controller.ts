@@ -63,15 +63,19 @@ export default class TaskController {
     }
   }
 
-  @Delete('/id')
-  async delete(@Param('id') id: number): Promise<{ message: string }> {
-        const result = await pool.query<Task>('SELECT * FROM tasks WHERE id = $1', [id]);
-        if (result.rows.length === 0) {
-            throw new HttpError(404, `Task not found`);
+    @Delete('/:id')
+    async delete(@Param('id') id: number): Promise<{ message: string }> {
+        try {
+            const result = await pool.query<Task>('DELETE FROM tasks WHERE id = $1 RETURNING *', [id]);
+            
+            if (result.rows.length === 0) {
+                throw new HttpError(404, `Task with id ${id} not found`);
+            }
+
+            return { message: 'Task deleted successfully' };
+        } catch (err: any) {
+            console.error(err);
+            throw new HttpError(500, 'Database error');
         }
-
-        await pool.query('DELETE FROM tasks WHERE id =$1', [id]);
-
-        return { message : 'Task deleted succesfully' };
     }
 }
