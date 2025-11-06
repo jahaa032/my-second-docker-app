@@ -9,7 +9,6 @@
     "types": [
       "node"
     ],
-    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -24,7 +23,6 @@
     "noUncheckedSideEffectImports": true
   },
   "include": [
-    "vite.config.ts",
-    "src"
+    "vite.config.ts"
   ]
 }
