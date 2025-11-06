@@ -1,6 +1,7 @@
 export interface TaskDTO {
     title: string;
     description: string;
+    status: string;
 }
 export type TaskJobData =
 | {type: "create"; body: TaskDTO}
