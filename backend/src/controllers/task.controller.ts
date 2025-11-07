@@ -1,7 +1,6 @@
 import { JsonController, Get, Post, Put, Param, Body, HttpError, Delete } from "routing-controllers";
 import pool from "../db.js";
 import type { TaskDTO } from "../types/task.js";
-import { parse } from "path";
 
 export interface Task {
   id: number;
