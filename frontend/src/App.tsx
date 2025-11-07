@@ -1,38 +1,31 @@
-import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Link, Route} from "react-router-dom"
+import fetchTasks from './routes/tasks/tasks.route'
 
-const App = () => {
+// function tasks() {
+//     return (
+//         <div>
+//             <h1>Tasks page</h1>
+//             <nav  style={{ marginBottom: '20px' }}>
+//                 <Link to="/"></Link>
+//             </nav>
+//         </div>
+//     )
+// }
 
-    const [tasks,setTasks] = useState<any[]>([])
+function App() {
+    <Router>
+        <nav>
+            <Link to="/">Home</Link> | <Link to="/tasks">Tasks</Link>
+        </nav>
 
-    const getTasks = () =>{
-        fetch("/api/tasks")
-        .then(res => res.json())
-        .then(json => setTasks(json))
-    }
+        <Routes>
+            <Route path="/" element={<h1>Welcome to the Task App!</h1>} />
+            <Route path="/tasks" element={<fetchTasks/>} />
 
-    useEffect(() => {
-        getTasks()
-    }, [])
-
-    return (
-       <div className={"container"}>
-        {tasks.map((task) => {
-             return <>
-             <div key={task.id} className='task-card'>
-                <h1>{task.title}</h1>
-                <h2>{task.description}</h2>
-                <p>Status: {task.status}</p>
-             </div>
-             </>
-            })}
-            </div>
-    );
-};
-export default App;
-
-
-
-
+        </Routes>
+    </Router>
+}
+export default App
 
 
 // import TaskList from "./components/TaskList";
